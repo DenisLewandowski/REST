@@ -1,10 +1,7 @@
-package pl.coreservices.BootCampHashTag;
+package pl.coreservices.utils;
 
 import org.apache.commons.io.FileUtils;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 import org.springframework.integration.annotation.InboundChannelAdapter;
 import org.springframework.integration.annotation.Poller;
 import org.springframework.integration.channel.DirectChannel;
@@ -14,24 +11,24 @@ import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.file.FileReadingMessageSource;
 import org.springframework.integration.file.filters.CompositeFileListFilter;
 import org.springframework.integration.file.transformer.FileToStringTransformer;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import pl.coreservices.configuration.WebAppConfiguration;
-import pl.coreservices.utils.FileProcessor;
-import pl.coreservices.utils.LastModifiedFileFilter;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-@SpringBootApplication
-@Import({WebAppConfiguration.class})
-public class BootCampHashTagApplication {
+public class FileProcessor {
 
+    private static final String HEADER_FILE_NAME = "file_name";
+    private static final String MSG = "%s received. Content: %s";
 
-	public static void main(String[] args) {
+    public void process(Message<String> msg) {
+        String fileName = (String) msg.getHeaders().get(HEADER_FILE_NAME);
+        String content = msg.getPayload();
 
-		SpringApplication.run(BootCampHashTagApplication.class, args);
-	}
+        System.out.println(fileName);
+    }
 
 
 }

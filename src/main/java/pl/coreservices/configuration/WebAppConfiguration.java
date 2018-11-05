@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import pl.coreservices.service.StatisticsService;
 
 @Configuration
-@ComponentScan(basePackages = {"pl.coreservices.web"})
+@ComponentScan(basePackages = {"pl.coreservices"})
 public class WebAppConfiguration {
 
     @Bean
